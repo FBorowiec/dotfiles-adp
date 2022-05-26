@@ -1,0 +1,29 @@
+[alias]
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    set-upstream = !git branch --set-upstream-to=origin/$(git symbolic-ref --short HEAD)
+[user]
+    name =
+    email =
+[core]
+    editor = nvim
+[push]
+    default = current
+[pull]
+    default = current
+[credential]
+	helper = store
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+[diff]
+    tool = vimdiff
+[mergetool "nvim"]
+    cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
+[merge]
+    tool = nvim
+[mergetool]
+    prompt = false
+[core]
+    excludesfile = ~/.config/gitignore

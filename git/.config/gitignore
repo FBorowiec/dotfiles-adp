@@ -1,0 +1,9 @@
+bazel-*
+compile_commands.json
+launch.json
+Session.vim
+.vimspector.json
+__init__.py
+__pycache__/
+*.pyc
+user.bazelrc
