@@ -101,7 +101,7 @@ function M.setup()
     dap.adapters.cppdbg = {
         id = 'cppdbg',
         type = 'executable',
-        command = os.getenv("HOME") .. "/.cpptools/cpptools-linux/extension/debugAdapters/bin/OpenDebugAD7",
+        command = '/usr/local/bin/OpenDebugAD7'
     }
     dap.configurations.cpp = {
         {
