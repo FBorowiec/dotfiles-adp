@@ -161,8 +161,19 @@ gencompdb() {
     rm ${BAZEL_ROOT}/compile_commands.json.bak 2> /dev/null;
 }
 
-alias tmux_def='rm -r -- ~/.tmux/resurrect/tmux_resurrect_* ~/.tmux/resurrect/last && ln -s ~/.tmux/resurrect/tmux_default.txt ~/.tmux/resurrect/last'
+ddadcompdb() {
+    if [ $# -eq 0 ]; then
+        echo "No Bazel targets specified!"
+        return 1
+    fi;
+    cd ~/ddad &&
+    ~/ddad/application/adp/tools/compile_commands/generate_compile_commands.sh ~/ddad/compile_commands.json --config=adp_gcc9 --config=platform_ros $* &&
+    if [ -e ~/ddad/compile_commands.json ]; then
+        sed -i 's/-fno-canonical-system-headers //g' ~/ddad/compile_commands.json;
+        sed -i 's/-ftree-loop-vectorize //g' ~/ddad/compile_commands.json;
+        perl -ni.bak -e 'print unless /.*\.h(pp)?"},?/' ~/ddad/compile_commands.json;
+    fi;
+    cd - 2> /dev/null;
+}
 
 export PATH="$PATH:/home/$USER/bin"
-export SPICETIFY_INSTALL="/home/$USER/spicetify-cli"
-export PATH="$SPICETIFY_INSTALL:$PATH"
